@@ -13,6 +13,7 @@
 #include "board.h"
 
 static void board_touchpad_intr_handler(void* arg);
+void board_lcd_init(void);
 
 static int64_t s_touchpad_press_time;
 static board_config_t s_config;
@@ -52,6 +53,7 @@ void board_touchpad_enable(void)
 
 void board_sleep(void)
 {
+    esp_deep_sleep_disable_rom_logging();
     esp_sleep_enable_ext1_wakeup(BIT64(TP_INT_PIN), ESP_EXT1_WAKEUP_ANY_HIGH);
     esp_deep_sleep_start();
 }
@@ -74,4 +76,19 @@ static void board_touchpad_intr_handler(void* arg)
     if (task_unblocked) {
         portYIELD_FROM_ISR();
     }
+}
+
+void board_lcd_enable(void)
+{
+    gpio_config_t pins_config = {
+        .pin_bit_mask = BIT64(TFT_RST_PIN) | BIT64(TFT_BL_PIN) | BIT64(TFT_DC_PIN),
+        .mode = GPIO_MODE_OUTPUT
+    };
+    ESP_ERROR_CHECK(gpio_config(&pins_config));
+    gpio_set_level(TFT_RST_PIN, 1);
+}
+
+void board_lcd_backlight(bool enable)
+{
+    gpio_set_level(TFT_BL_PIN, enable);
 }

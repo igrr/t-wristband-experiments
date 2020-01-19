@@ -10,6 +10,7 @@
 #include "esp_event.h"
 #include "board.h"
 #include "sleep_timeout.h"
+#include "display.h"
 
 #define SLEEP_TIMEOUT_MS 3000
 
@@ -31,6 +32,10 @@ void app_main(void)
     board_config_t board_config = BOARD_CONFIG_DEFAULT();
     board_init(&board_config);
     board_touchpad_enable();
+    board_lcd_enable();
+
+    display_init();
+    display_hello();
 
     sleep_timeout_init(SLEEP_TIMEOUT_MS);
 }

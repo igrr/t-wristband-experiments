@@ -17,6 +17,14 @@ extern "C" {
 #define LED_PIN             4
 #define CHARGE_PIN          32
 
+
+#define TFT_MOSI_PIN 19
+#define TFT_SCLK_PIN 18
+#define TFT_CS_PIN   5
+#define TFT_DC_PIN   23
+#define TFT_RST_PIN  26
+#define TFT_BL_PIN   27
+
 typedef struct {
     int touchpad_long_press_threshold_ms;
 } board_config_t;
@@ -27,6 +35,8 @@ typedef struct {
 
 void board_init(const board_config_t* config);
 void board_touchpad_enable(void);
+void board_lcd_enable(void);
+void board_lcd_backlight(bool enable);
 void board_sleep(void);
 
 ESP_EVENT_DECLARE_BASE(BOARD_EVENT);
