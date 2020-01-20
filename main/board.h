@@ -33,7 +33,7 @@ typedef struct {
     .touchpad_long_press_threshold_ms = 1500, \
 };
 
-void board_init(const board_config_t* config);
+void board_init(const board_config_t *config);
 void board_touchpad_enable(void);
 void board_lcd_enable(void);
 void board_lcd_backlight(bool enable);

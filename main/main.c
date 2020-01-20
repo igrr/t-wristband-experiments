@@ -22,7 +22,7 @@ static EVENT_HANDLER(on_touchpad_press);
 static EVENT_HANDLER(on_touchpad_long_press);
 
 
-static const char* TAG = "main";
+static const char *TAG = "main";
 
 void app_main(void)
 {

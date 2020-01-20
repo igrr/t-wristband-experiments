@@ -12,13 +12,13 @@
 #include "board.h"
 #include "sys/lock.h"
 
-static void sleep_timeout_cb(void* arg);
+static void sleep_timeout_cb(void *arg);
 
 static esp_timer_handle_t s_sleep_timer;
 static int s_sleep_timeout_ms;
 
 ESP_EVENT_DEFINE_BASE(SLEEP_EVENT);
-static const char* TAG = "sleep";
+static const char *TAG = "sleep";
 
 void sleep_timeout_init(int timeout_ms)
 {
@@ -32,7 +32,7 @@ void sleep_timeout_init(int timeout_ms)
     sleep_timeout_reset();
 }
 
-static void sleep_timeout_cb(void* arg)
+static void sleep_timeout_cb(void *arg)
 {
     ESP_ERROR_CHECK(esp_event_post(SLEEP_EVENT, SLEEP_TIMEOUT, NULL, 0, portMAX_DELAY));
 }
