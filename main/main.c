@@ -11,6 +11,7 @@
 #include "board.h"
 #include "sleep_timeout.h"
 #include "display.h"
+#include "pcf8563.h"
 
 #define SLEEP_TIMEOUT_MS 3000
 
@@ -31,11 +32,18 @@ void app_main(void)
 
     board_config_t board_config = BOARD_CONFIG_DEFAULT();
     board_init(&board_config);
+    board_rtc_init();
     board_touchpad_enable();
     board_lcd_enable();
 
     display_init();
-    display_hello();
+
+    struct tm tm;
+    pcf8563_get_time(&tm);
+    display_time(&tm);
+
+    /* only turn on the backlight when finished drawing */
+    board_lcd_backlight(true);
 
     sleep_timeout_init(SLEEP_TIMEOUT_MS);
 }

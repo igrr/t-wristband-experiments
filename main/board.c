@@ -10,13 +10,16 @@
 #include "esp_log.h"
 #include "driver/gpio.h"
 #include "driver/rtc_io.h"
+#include "driver/i2c.h"
 #include "board.h"
+#include "pcf8563.h"
 
 static void board_touchpad_intr_handler(void *arg);
 void board_lcd_init(void);
 
 static int64_t s_touchpad_press_time;
 static board_config_t s_config;
+static const i2c_port_t s_i2c_port = I2C_NUM_0;
 
 ESP_EVENT_DEFINE_BASE(BOARD_EVENT);
 
@@ -91,4 +94,24 @@ void board_lcd_enable(void)
 void board_lcd_backlight(bool enable)
 {
     gpio_set_level(TFT_BL_PIN, enable);
+}
+
+static void board_i2c_init(void)
+{
+    ESP_ERROR_CHECK(i2c_driver_install(s_i2c_port, I2C_MODE_MASTER, 0, 0, 0));
+    i2c_config_t conf = {
+        .mode = I2C_MODE_MASTER,
+        .sda_io_num = I2C_SDA_PIN,
+        .sda_pullup_en = GPIO_PULLUP_ENABLE,
+        .scl_io_num = I2C_SCL_PIN,
+        .scl_pullup_en = GPIO_PULLUP_ENABLE,
+        .master.clk_speed = 100000
+    };
+    ESP_ERROR_CHECK(i2c_param_config(s_i2c_port, &conf));
+}
+
+void board_rtc_init(void)
+{
+    board_i2c_init();
+    pcf8563_init(s_i2c_port);
 }

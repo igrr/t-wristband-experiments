@@ -37,6 +37,7 @@ void board_init(const board_config_t *config);
 void board_touchpad_enable(void);
 void board_lcd_enable(void);
 void board_lcd_backlight(bool enable);
+void board_rtc_init(void);
 void board_sleep(void);
 
 ESP_EVENT_DECLARE_BASE(BOARD_EVENT);

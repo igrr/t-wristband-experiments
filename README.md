@@ -13,8 +13,10 @@ Build and flash as usual for and IDF application (`idf.py build flash monitor`).
 - [x] Touchpad button
 - [x] Enter sleep after some time
 - [x] LCD driver
-- [ ] RTC driver
-- [ ] Time output to LCD
+- [x] RTC driver
+- [x] Time output to LCD
+- [ ] Nicer time output (rotate text)
+- [ ] Settings mode (long press, menus)
 - [ ] Phone connection (?)
 - [ ] Time sync
 - [ ] IMU driver
