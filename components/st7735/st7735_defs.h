@@ -84,13 +84,13 @@ extern const uint8_t CHARACTERS[][CHARS_COLS_LEN];
 /** @enum Font sizes */
 typedef enum {
 // normal font size: 1x high & 1x wide
-X1 = 0x00,
+    X1 = 0x00,
 // bigger font size: 2x higher & 1x wide
-X2 = 0x01,
+    X2 = 0x01,
 // the biggest font size: font 2x higher & 2x wider
 // 0x0A is set cause offset 5 position to right only for
 //      this case and no offset for previous cases X1, X2
 //      when draw the characters of string in DrawString()
-X3 = 0x0A
+    X3 = 0x0A
 } ESizes;
 
